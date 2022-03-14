@@ -55,3 +55,4 @@ jobs:
           to: demirel.141@hotmail.com
           from: akinturk.0.01@gmail.com
           html_body: "<html><head></head><body><p>Deployed,</p>Satage deployed.</p></body></html>"
+          
