@@ -1,0 +1,29 @@
+name: TestStagePipeline
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  lint-kontrol:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: yarn install
+        run: yarn install
+        
+      - name: Lint Kural Kontrol
+        run: yarn lint
+
+      - name: Formatlama kurallari
+        run: yarn format:check
+
+      - name: Unit testler
+        run: yarn test
+
+      - name: Coverage threshold'u uygunluk
+        run: yarn test:cov
+
+      - name: EndtoEnd test
+        run: yarn test:e2e

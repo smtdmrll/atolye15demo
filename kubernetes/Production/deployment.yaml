@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sametdemoprod
+  labels:
+    app: sametdemoprod
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sametdemoprod
+  template:
+    metadata:
+      labels:
+        app: sametdemoprod
+    spec:
+      containers:
+        - name: sametdemoprod
+          image: sametdemirel/atolye15demo:latest
+          resources:
+            limits:
+              cpu: 1
+              memory: 564Mi
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+        - name: sametsecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prodloadbalancerservice
+spec:
+  type: LoadBalancer
+  selector:
+    app: sametdemoprod
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

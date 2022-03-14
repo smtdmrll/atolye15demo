@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sametdemostage
+  labels:
+    app: sametdemostage
+  namespace: stage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sametdemostage
+  template:
+    metadata:
+      labels:
+        app: sametdemostage
+    spec:
+      containers:
+        - name: sametdemostage
+          image: sametdemirel/atolye15demo:latest
+          resources:
+            limits:
+              cpu: 1
+              memory: 564Mi
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+        - name: sametsecret
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: stageloadbalancerservice
+spec:
+  type: LoadBalancer
+  selector:
+    app: sametdemostage
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000    
