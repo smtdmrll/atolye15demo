@@ -28,7 +28,7 @@ spec:
       imagePullSecrets:
         - name: sametsecret
 
----
+--- 
 
 apiVersion: v1
 kind: Service
